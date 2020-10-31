@@ -48,12 +48,12 @@
               <tr
                 v-for = "innbetaling in getInnbetalinger()"
                 :key = "innbetaling.dato">
-                <td>{{innbetaling.restgjeld}}</td>
+                <td>{{Math.round(innbetaling.restgjeld)}}</td>
                 <td>{{innbetaling.dato}}</td>
-                <td>{{innbetaling.innbetaling}}</td>
+                <td>{{Math.round(innbetaling.innbetaling)}}</td>
                 <td>{{innbetaling.gebyr}}</td>
-                <td>{{innbetaling.renter}}</td>
-                <td>{{innbetaling.total}}</td>
+                <td>{{Math.round(innbetaling.renter)}}</td>
+                <td>{{Math.round(innbetaling.total)}}</td>
               </tr>
             </tbody>
           </template>
@@ -70,7 +70,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 export default class HelloWorld extends Vue {
   private innbetalinger = [];
   private laanebelop = "2000000";
-  private nominellRente = "3";
+  private nominellRente = "1.5";
   private terminGebyr = "30";
   private saldoDato = new Date().toISOString().slice(0, 10);
   private ukjentVerdi = "TERMINBELOP";
@@ -89,11 +89,10 @@ export default class HelloWorld extends Vue {
     let utlopsDato = utlopsDatoStr.toISOString().slice(0, 10);
     let datoForsteInnbetalingStr = new Date(year, date.getMonth() + 1, date.getDate() + 1);
     let datoForsteInnbetaling = datoForsteInnbetalingStr.toISOString().slice(0, 10);
-    console.log(utlopsDato, datoForsteInnbetaling);
 
     let req = {
       laanebelop: this.laanebelop,
-      nominellRente: this.nominellRente,
+      nominellRente: this.nominellRente.replace(',', '.'),
       terminGebyr: this.terminGebyr,
       utlopsDato,
       saldoDato: this.saldoDato,
