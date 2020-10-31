@@ -2,19 +2,19 @@
   <v-container>
     <v-row class="text-center">
       <v-col cols="6">
-        <v-text-field label="Lånebeløp: " v-model="laanebelop"></v-text-field>
-        <v-text-field label="Løpetid: " v-model="lopetid" ></v-text-field>
+        <v-text-field label="Lånebeløp: " v-model="laanebelop" :rules="[required, numbers, positive]"></v-text-field>
+        <v-text-field label="Løpetid: " v-model="lopetid" :rules="[required, numbers, positive]"></v-text-field>
 
          <v-menu v-model="fromDateMenu" :close-on-content-click="false">
           <template v-slot:activator="{ on }">
-            <v-text-field label="Startdato: " v-model="saldoDato" v-on="on"></v-text-field>
+            <v-text-field label="Startdato: " readonly v-model="saldoDato" v-on="on"></v-text-field>
           </template>
           <v-date-picker v-model="saldoDato" elevation="15" @input="fromDateMenu = false" ></v-date-picker>
         </v-menu>
       </v-col>
       <v-col cols="6">
-        <v-text-field label="Termingebyr: " v-model="terminGebyr" ></v-text-field>
-        <v-text-field label="Nominell rente: " v-model="nominellRente" ></v-text-field>
+        <v-text-field label="Termingebyr: " v-model="terminGebyr" :rules="[required, numbers, positive]"></v-text-field>
+        <v-text-field label="Nominell rente: " v-model="nominellRente" :rules="[required, numbers, positive]"></v-text-field>
       </v-col>
     </v-row>
     <v-row>
@@ -80,6 +80,17 @@ export default class HelloWorld extends Vue {
   getInnbetalinger() {
     return this.innbetalinger;
   }
+
+  required(value: string) {
+    return value.length > 0 || "Vennligst oppgi en verdi.";
+  }
+  positive(value:string) {
+    return parseInt(value) > 0 || "Vennligst oppgi en verdi høyere enn null.";
+  }
+  numbers(value:string) {
+    return !isNaN(parseInt(value)) || "Vennligst oppgi en numerisk verdi.";
+  }
+
 
   async makePostRequest() {
     let parts = this.saldoDato.split('-');
