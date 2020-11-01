@@ -19,7 +19,7 @@
     </v-row>
     <v-row>
       <v-col align="center">
-        <v-btn color="base" type="submit" @click="makePostRequest()">Regn ut</v-btn><br><br>
+        <v-btn color="success" type="submit" @click="makePostRequest()">Regn ut</v-btn><br><br>
         <v-simple-table v-if = "innbetalinger.length>0">
           <template v-slot: default>
             <thead>
