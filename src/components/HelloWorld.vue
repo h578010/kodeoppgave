@@ -102,9 +102,9 @@ export default class HelloWorld extends Vue {
     let datoForsteInnbetaling = datoForsteInnbetalingStr.toISOString().slice(0, 10);
 
     let req = {
-      laanebelop: this.laanebelop,
-      nominellRente: this.nominellRente.replace(',', '.'),
-      terminGebyr: this.terminGebyr,
+      laanebelop: parseInt(this.laanebelop),
+      nominellRente: parseInt(this.nominellRente.replace(',', '.')),
+      terminGebyr: parseInt(this.terminGebyr),
       utlopsDato,
       saldoDato: this.saldoDato,
       datoForsteInnbetaling,
@@ -123,6 +123,9 @@ export default class HelloWorld extends Vue {
     if (res.ok) {
       let resObject = await res.json();
       this.innbetalinger = resObject.nedbetalingsplan.innbetalinger;
+    }
+    else {
+      alert("Det er problemer med å oppnå kontakt med serveren. Vennligst prøv igjen senere.");
     }
   }
 }
