@@ -1,4 +1,4 @@
-# test
+# Laanekalkulator
 
 ## Project setup
 ```
