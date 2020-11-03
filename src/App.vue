@@ -17,20 +17,20 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <Kalkulator/>
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import Kalkulator from './components/Kalkulator.vue';
 
 export default Vue.extend({
   name: 'App',
 
   components: {
-    HelloWorld,
+    Kalkulator,
   },
 
   data: () => ({
